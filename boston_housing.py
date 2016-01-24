@@ -201,6 +201,7 @@ def fit_predict_model(city_data):
     y = best_clf.predict(x)
     print "House: " + str(x)
     print "Prediction: " + str(y)
+    print "Best model parameter:  " + str( reg.best_params_)
 
 def main():
     """Analyze the Boston housing data. Evaluate and validate the
