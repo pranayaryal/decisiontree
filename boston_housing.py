@@ -2,9 +2,9 @@
 # coding: utf-8
 
 # In[1]:
-
+%matplotlib inline
 """Load the Boston dataset and examine its target (label) distribution."""
-get_ipython().magic(u'matplotlib inline')
+
 # Load libraries
 import numpy as np
 from sklearn import grid_search
