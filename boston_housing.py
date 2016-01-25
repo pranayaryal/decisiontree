@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[1]:
+# In[8]:
 
 """Load the Boston dataset and examine its target (label) distribution."""
 get_ipython().magic(u'matplotlib inline')
@@ -162,6 +162,14 @@ def model_complexity_graph(max_depth, train_err, test_err):
     pl.xlabel('Max Depth')
     pl.ylabel('Error')
     pl.show()
+    
+def find_nearest_neighbour_indexes(x, X): #x is the vector, X is the data set
+    from sklearn.neighbors import NearestNeighbors
+    neigh = NearestNeighbors(n_neighbors = 10)
+    neigh.fit(X)
+    distance, indexes = neigh.kneighbors( x )
+    return indexes
+    
 
 
 def fit_predict_model(city_data):
@@ -201,6 +209,15 @@ def fit_predict_model(city_data):
     y = best_clf.predict(x)
     print "House: " + str(x)
     print "Prediction: " + str(y)
+    print "Best model parameter:  " + str(clf.best_params_)
+    
+    # Assessing if prediction is reasonable
+    indexes = find_nearest_neighbour_indexes(x, X)
+    sum_prices = []
+    for i in indexes:
+        sum_prices.append(city_data.target[i])
+    neighbor_avg = np.mean(sum_prices)
+    print "Nearest neighbour average: " + str(neighbor_avg)
 
 def main():
     """Analyze the Boston housing data. Evaluate and validate the
@@ -226,11 +243,15 @@ def main():
 
     # Tune and predict Model
     fit_predict_model(city_data)
+    
+    
 
 
 if __name__ == "__main__":
     main()
 
+
+# 
 
 # In[ ]:
 
