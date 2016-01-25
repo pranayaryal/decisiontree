@@ -4,7 +4,7 @@
 # In[8]:
 
 """Load the Boston dataset and examine its target (label) distribution."""
-get_ipython().magic(u'matplotlib inline')
+%matplotlib inline
 # Load libraries
 import numpy as np
 from sklearn import grid_search
@@ -245,20 +245,10 @@ def main():
     fit_predict_model(city_data)
     
     
-
-
 if __name__ == "__main__":
     main()
 
 
-# 
-
-# In[ ]:
-
-
-
-
-# In[ ]:
 
 
 
