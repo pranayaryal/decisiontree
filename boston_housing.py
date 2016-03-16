@@ -1,9 +1,4 @@
 
-
-
-
-
-"""Load the Boston dataset and examine its target (label) distribution."""
 %matplotlib inline
 # Load libraries
 import numpy as np
@@ -16,13 +11,11 @@ from sklearn import metrics
 from sklearn.metrics import make_scorer
 
 
-
-
 def load_data():
     boston = datasets.load_boston()
     return boston
 
-
+#exploratory data analysis
 def explore_city_data(city_data):
     housing_prices = city_data.target
     housing_features = city_data.data
@@ -34,29 +27,22 @@ def explore_city_data(city_data):
     median_price = np.median(city_data.target)
     stand_dev = np.std(city_data.target)
 
+#split data into train and test sets
 def split_data(city_data):
    X, y = city_data.data, city_data.target
+   X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=42)
 
-  
-
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=42)
-    
     return X_train, y_train, X_test, y_test
 
 
 def performance_metric(label, prediction):
-    """Calculate and return the appropriate error performance metric."""
-
-    
     mse = metrics.mean_squared_error(label, prediction)
-    
-
     return mse
-    # The following page has a table of scoring functions in sklearn:
-    # http://scikit-learn.org/stable/modules/classes.html#sklearn-metrics-metrics
+
+    # http://scikit-learn.org/stable/modules/classes.html#sklearn-metrics-metrics(scoring tables in sklearn)
     pass
 
-
+#Calculate the performance of the model after a set of training data.
 def learning_curve(depth, X_train, y_train, X_test, y_test):
     """Calculate the performance of the model after a set of training data."""
 
@@ -84,8 +70,6 @@ def learning_curve(depth, X_train, y_train, X_test, y_test):
 
 
 def learning_curve_graph(sizes, train_err, test_err):
-    """Plot training and test error as a function of the training size."""
-
     pl.figure()
     pl.title('Decision Trees: Performance vs Training Size')
     pl.plot(sizes, test_err, lw=2, label = 'test error')
@@ -97,8 +81,6 @@ def learning_curve_graph(sizes, train_err, test_err):
 
 
 def model_complexity(X_train, y_train, X_test, y_test):
-    """Calculate the performance of the model as model complexity increases."""
-
     print "Model Complexity: "
 
     # We will vary the depth of decision trees from 2 to 25
@@ -124,7 +106,6 @@ def model_complexity(X_train, y_train, X_test, y_test):
 
 
 def model_complexity_graph(max_depth, train_err, test_err):
-    """Plot training and test error as a function of the depth of the decision tree learn."""
 
     pl.figure()
     pl.title('Decision Trees: Performance vs Max Depth')
@@ -134,14 +115,14 @@ def model_complexity_graph(max_depth, train_err, test_err):
     pl.xlabel('Max Depth')
     pl.ylabel('Error')
     pl.show()
-    
+
 def find_nearest_neighbour_indexes(x, X): #x is the vector, X is the data set
     from sklearn.neighbors import NearestNeighbors
     neigh = NearestNeighbors(n_neighbors = 10)
     neigh.fit(X)
     distance, indexes = neigh.kneighbors( x )
     return indexes
-    
+
 
 
 def fit_predict_model(city_data):
@@ -161,16 +142,14 @@ def fit_predict_model(city_data):
     scores = make_scorer(metrics.mean_squared_error, greater_is_better=False)
     # http://scikit-learn.org/stable/modules/generated/sklearn.metrics.make_scorer.html
 
-    # 2. We will use grid search to fine tune the Decision Tree Regressor and
-    # obtain the parameters that generate the best training performance. Set up
-    # the grid search object here.
+
     clf = grid_search.GridSearchCV(regressor, parameters, scoring=scores)
     # http://scikit-learn.org/stable/modules/generated/sklearn.grid_search.GridSearchCV.html#sklearn.grid_search.GridSearchCV
 
     # Fit the learner to the training data to obtain the best parameter set
     print "Final Model: "
     clf.fit(X,y)
-    
+
     # Use the model to predict the output of a particular sample
     best_clf = clf.best_estimator_
     print best_clf
@@ -179,8 +158,8 @@ def fit_predict_model(city_data):
     print "House: " + str(x)
     print "Prediction: " + str(y)
     print "Best model parameter:  " + str(clf.best_params_)
-    
-    # Assessing if prediction is reasonable
+
+    # Assessing if prediction is reasonable by finding the nearest neighbors using k-nearest neighbor algorithm
     indexes = find_nearest_neighbour_indexes(x, X)
     sum_prices = []
     for i in indexes:
@@ -189,9 +168,7 @@ def fit_predict_model(city_data):
     print "Nearest neighbour average: " + str(neighbor_avg)
 
 def main():
-    """Analyze the Boston housing data. Evaluate and validate the
-    performanance of a Decision Tree regressor on the housing data.
-    Fine tune the model to make prediction on unseen data."""
+
 
     # Load data
     city_data = load_data()
@@ -212,12 +189,7 @@ def main():
 
     # Tune and predict Model
     fit_predict_model(city_data)
-    
-    
+
+
 if __name__ == "__main__":
     main()
-
-
-
-
-
