@@ -1,7 +1,7 @@
 
-# coding: utf-8
 
-# In[8]:
+
+
 
 """Load the Boston dataset and examine its target (label) distribution."""
 %matplotlib inline
@@ -19,43 +19,23 @@ from sklearn.metrics import make_scorer
 
 
 def load_data():
-    """Load the Boston dataset."""
-
     boston = datasets.load_boston()
     return boston
 
 
 def explore_city_data(city_data):
-    """Calculate the Boston housing statistics."""
-
-    # Get the labels and features from the housing data
     housing_prices = city_data.target
     housing_features = city_data.data
-
-   
-
-    
-    
-    # Size of data (number of houses)?
     num_houses = np.shape(city_data.data)
-    # Number of features?
     num_features = np.shape(city_data.data)
-    # Minimum price?
     min_price = np.min(city_data.target)
-    # Maximum price?
     max_price = np.max(city_data.target)
-    # Calculate mean price?
     mean_price = np.mean(city_data.target)
-    # Calculate median price?
     median_price = np.median(city_data.target)
-    # Calculate standard deviation?
     stand_dev = np.std(city_data.target)
 
 def split_data(city_data):
-    """Randomly shuffle the sample set. Divide it into 70 percent training and 30 percent testing data."""
-
-    # Get the features and labels from the Boston housing data
-    X, y = city_data.data, city_data.target
+   X, y = city_data.data, city_data.target
 
   
 
