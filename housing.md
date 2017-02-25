@@ -1,3 +1,5 @@
+###These are good features to have on housing dataset
+
 MSSubClass: Identifies the type of dwelling involved in the sale.	
 
         20	1-STORY 1946 & NEWER ALL STYLES
