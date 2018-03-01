@@ -1,5 +1,3 @@
-
-%matplotlib inline
 # Load libraries
 import numpy as np
 from sklearn import grid_search
@@ -31,8 +29,7 @@ def explore_city_data(city_data):
 def split_data(city_data):
    X, y = city_data.data, city_data.target
    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=42)
-
-    return X_train, y_train, X_test, y_test
+   return X_train, y_train, X_test, y_test
 
 
 def performance_metric(label, prediction):
